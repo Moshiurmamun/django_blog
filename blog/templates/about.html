@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block head_title %} About | {{ block.super }}{% endblock head_title %}
+{% load urlify %}
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-8 col-xs-8 col-sm-offset-2 col-xs-offset-2 about_us">
+        <h2 style="text-align:center;">About Us</h2><hr>
+<br>
+
+    <p>Knowledgegossip is one of the best learning and useful tips & tricks technology based website in Bangladesh.
+        People can visit the site and read topics without registration..</p><br>
+
+    <p>Visitors are able to give their opinion about any topics & ask any question in comment section after
+        registration.</p><br>
+
+    <p>Our target:</p>
+        <p>Our target is to make internet a learning place and we want to give chance to peoples to share their knowledge
+        about technology by using our website. Knowledgegossip.com believes that knowledge is only for sharing so if any
+        one know something about technology and wants to share will be always welcome to knowledgegossip family.
+            And if any one wants to enrich knowledge about technology also always welcome to our website.</p>
+
+
+        <br>
+        <br>
+
+    <!-- Social site share -->
+        <div class="icon-grid">
+             <div class="icon-icon text-center">
+                <ul class="icon-class">
+                    <li><a href="https://twitter.com/home?status={{ instance.content|truncatechars:70|urlify }}%20{{ request.build_absolute_uri }}">
+                        <i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li><a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&
+                        title={{ instance.title }}&summary={{ instance.content|truncatechars:70|urlify }}&source={{ request.build_absolute_uri }}">
+                    <i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    </li>
+                    <li><a href="http://www.reddit.com/submit?url={{ request.build_absolute_uri }}&
+                        title={{ instance.title }}."><i class="fa fa-reddit"></i></a>
+                    </li>
+                    <li>
+                        <a href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'><i class="fa fa-google-plus"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <br>
+
+    </div>
+
+</div>
+
+{% endblock content %}

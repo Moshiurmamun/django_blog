@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block head-extra %}
+  {{ form.media }}
+{% endblock head-extra %}
+
+
+{% block head_title %} Create post | {{ block.super }}{% endblock head_title %}
+
+{% block content %}
+    <div class="col-sm-6 col-sm-offset-3">
+        <h1>Form</h1>
+
+        <form method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="row">
+
+                <div id="div_id_category" class="form-group"> <label class="col-form-label ">Category</label>
+                    {{ form.category }}
+                </div>
+
+
+                <div id="div_id_title" class="form-group"> <label class="col-form-label  requiredField">Title</label>
+                    {{ form.title}}
+                </div>
+
+
+                <div id="div_id_content" class="form-group"> <label  class="col-form-label  requiredField">Content </label>
+                    {{ form.content }}
+                    <div class="">
+                    <div class="wmd-wrapper" id="id_content-wmd-wrapper"> <div class="wmd-panel"> </div> </div> </div>
+                </div>
+
+
+                <div id="div_id_image" class="form-group">
+                    <label class="col-form-label ">Image</label> {{ form.image }}
+                </div>
+
+
+                {% if request.user.is_staff %}
+                <div id="div_id_draft" class="form-check"> <label class="form-check-label">Draft</label>
+                {{ form.draft }}
+                </div>
+
+                {% else %}
+                <div id="div_id_draft" class="form-check">
+                    <label class="form-check-label">Draft</label>
+                    <input id="id_draft" type="checkbox" checked="" name="draft" class="user_draft">
+                </div>
+
+                {% endif %}
+
+
+
+
+
+                <div id="div_id_publish" class="form-group"> <label  class="col-form-label  requiredField">Publish</label>
+                    {{ form.publish }}
+                </div>
+
+                <div id="div_id_worksheet_file" class="form-group"> <label class="col-form-label ">Worksheet file</label>
+                    {{ form.worksheet_file }}
+                </div>
+
+             <input type='submit' class='btn btn-primary' value='Create Post'/>
+
+            </div>
+            <br>
+            <br>
+        </form>
+    </div>
+{% endblock content %}

@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+
+
+{% load urlify %}
+{% load markdown_deux_tags %}
+
+{% block head_title %}{{ title }} | {{ block.super }}{% endblock head_title %}
+
+
+{% block content %}
+<div class="row">
+<div class="col-sm-8 col-sm-offset-0">
+<div class="row">
+    <div class="col-sm-12">
+        {% if instance.image %}
+        <a href="{{ instance.get_absolute_url }}"><img src="{{ instance.image.url }}" class="img-responsive"></a>
+        {% endif %}
+        <h3><b>{{ title }}</b><small>
+        {% if instance.draft %}</small><span style="color:red;">Draft</span>{% endif %}</small></h3>
+    <hr>
+
+
+        {% if request.user.is_staff %}
+        <h4><a href="{% url 'post:post_edit' slug=instance.slug %}"><span style="color:red">Edit</span></a></h4>
+        {% endif %}
+
+        {% if request.user.is_staff %}
+        <h4><a href="{% url 'post:post_delete' slug=instance.slug %}"><span style="color:red">Delete</span></a></h4>
+        {% endif %}
+
+
+
+
+        <p>Read time: {{ instance.read_time }} minutes</p>
+
+
+            <i class="fa fa-clock-o"></i> {{ instance.publish }}
+            {% if instance.user.get_full_name %}
+            <i class="fa fa-user left"></i> {{ instance.user.get_full_name }}
+            {% else %}
+             <i class="fa fa-user left"></i> {{ instance.user }}
+            {% endif %}
+
+             {% if instance.category.name %}
+            <i class="fa fa-folder-open-o left"></i>
+            <a href="{% url 'post:topic' name=instance.category.name %}"><span>{{ instance.category.name }}</span></a>
+             {% endif %}
+
+    <hr>
+
+
+    <div class="fb-like" data-href="{{ request.build_absolute_uri }}" data-layout="button_count"
+         data-action="like" data-size="small" data-show-faces="true" data-share="true">
+</div>
+    <hr>
+
+      <p> {{ instance.get_message_as_markdown }}</p>
+        <br>
+        <br>
+
+    {% if instance.worksheet_file %}
+        <p>Click here to download :<a style="color:red" href="{{ instance.worksheet_file.url }}"> {{ instance.worksheet_file }}</a></p>
+    {% endif %}
+
+
+<br>
+        <p style="text-align:center"> <i class="fa fa-eye"></i> {{ instance.views }} total views</p>
+        <hr/>
+
+
+
+<!--
+<a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">facebook</a>
+-->
+
+
+<!-- share social link -->
+
+        <div class="icon-grid">
+            <div class="icon-icon text-center">
+                <ul class="icon-class">
+                    <li><a href="https://twitter.com/home?status={{ instance.content|truncatechars:70|urlify }}%20{{ request.build_absolute_uri }}">
+                         <i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li><a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&
+                      title={{ instance.title }}&summary={{ instance.content|truncatechars:70|urlify }}&source={{ request.build_absolute_uri }}">
+                         <i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    </li>
+                    <li><a href="http://www.reddit.com/submit?url={{ request.build_absolute_uri }}&
+                        title={{ instance.title }}."><i class="fa fa-reddit"></i></a>
+                    </li>
+                    <li>
+                        <a href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'><i class="fa fa-google-plus"></i></a>
+                    </li>
+                 </ul>
+            </div>
+        </div>
+
+
+
+    <div class="fb-comments" data-href="{{ request.build_absolute_uri }}"
+         data-numposts="5">
+    </div>
+
+
+</div>
+</div>
+</div>
+
+    <!-- ============== Start Right col ============== -->
+         <div class="col-sm-4">
+
+
+             <!-- ================= Popular Posts ================ -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4><b>Popular Posts</b></h4>
+                </div>
+
+
+                    {% if mosts %}
+                    <ul style="list-style-type:none; margin:0px; padding:0px">
+                        {% for most in mosts %}
+                        <div class="row">
+                            <div class="col-sm-12">
+
+                                {% if most.image %}
+                                    <div class="col-sm-4 col-xs-2">
+                                        <a href="{{ most.get_absolute_url }}"> <img src="{{ most.image.url }}" class="img-responsive"></a>
+                                    </div>
+                                {% endif %}
+                                    <div class="col-sm-8">
+                                        <li><a href="{{ most.get_absolute_url }}">{{ most.title }}</a></li>
+                                    </div>
+                            </div>
+                        </div>
+
+                        <br>
+                            {% endfor %}
+                    </ul>
+                    {% else %}
+                <div class="col-sm-12">
+                    <strong>NO Posts</strong>
+                </div>
+                    {% endif %}
+
+            </div><!-- End popular posts -->
+
+<hr>
+
+       <!-- ================= Category List ================ -->
+            <div class="row">
+                <div class="col-sm-12">
+                        <h4><b>Categories</b></h4>
+
+                        {% if categories %}
+                            <ul style="list-style-type:none;margin:0px;padding:0px">
+                                {% for category in categories %}
+                                <p><li><a href="/posts/category/{{ category.name }}">{{ category.name }} ( {{ category.post_set.count }} )</a></li></p>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                        <strong>No categories</strong>
+                        {% endif %}
+
+                </div>
+            </div> <!-- End Category -->
+
+<hr>
+
+
+
+
+
+
+        </div><!--  End Left col -->
+
+        <!--   -->
+</div>
+
+
+
+{% endblock content %}

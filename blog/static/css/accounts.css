@@ -1,0 +1,39 @@
+.card-body{
+    padding-top: 5px;
+
+}
+.card-title{
+margin-bottom: 40px;
+}
+.login{
+    margin-top:140px;
+    margin-bottom:60px;
+}
+
+.card-footer{
+    padding-top: 20px;
+}
+.reset_password{
+margin-top: 120px;
+margin-bottom: 310px;
+}
+.reset_password_confirm{
+margin-top: 100px;
+margin-bottom: 110px;
+}
+.change_password{
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.reset_password_confirm{
+    margin-bottom: 150px;
+}
+
+.profile_edit{
+    margin-top: 30px;
+    margin-bottom: 300px;
+}
+.profile_info{
+    margin-bottom: 100px;
+}

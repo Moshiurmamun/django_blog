@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{{ title }} | {{ block.super }}{% endblock head_title %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+{% endblock %}
+
+
+{% block content %}
+  <div class="row ">
+    <div class="col-md-4 col-sm-8 col-xs-8 col-sm-offset-2 col-md-offset-4 col-xs-offset-2">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title text-center">Register</h3>
+          <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" class="btn btn-primary" value="Create an account"></input>
+          </form>
+        </div>
+        <div class="card-footer text-muted text-center">
+            <p>Already have an account? <a href="{% url 'accounts:login' %}">Log in</a></p>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

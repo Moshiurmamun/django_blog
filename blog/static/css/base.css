@@ -1,0 +1,111 @@
+
+html{
+    position: relative;
+    height: 100%;
+}
+
+
+body{
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Lato', sans-serif;
+    height: 100%;
+    background-color: #f7f7f7;
+}
+
+
+.container{
+    background: #fff;
+    box-shadow: 5px 0px 30px rgba(0,0,0, .2);
+}
+
+p{
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+/*===== For user draft =======*/
+.user_draft{
+ visibility:hidden;
+}
+
+
+.about_us p{
+    font-size:16px;
+    letter-spacing:1px;
+    text-align:justify;
+    line-height:25px;
+    }
+.site_title h3 a:hover{
+    color: black;
+}
+
+.navbar-nav li a{
+    font-weight: 700;
+}
+
+
+.wmd-panel{
+  margin-left: 0px !important;
+}
+
+h1{
+    color: #000000;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+a:hover{
+    color: #cc0000;
+    text-decoration: none;
+}
+
+
+.icon-grid{
+	width: 100px;
+
+}
+.icon-icon{
+    position: relative;
+}
+.icon-class {
+    padding-left: 0px;
+    display: inline-flex;
+    list-style: none;
+    margin: 0px;
+}
+.icon-class li{
+    margin: 0px;
+}
+.icon-class li a {
+    font-size: 17px;
+    color: #fff;
+    text-align: center;
+    margin-right: 12px;
+    float: left;
+    height: 33px;
+    width: 35px;
+    background-color: #4da6ff;
+    border-radius: 5px;
+    line-height: 30px;
+}
+
+
+
+/* ========= fa icon margin =========== */
+.left{
+    margin-left: 8px;
+}
+.fa{
+    margin-right: 2px;
+}
+
+
+/* ========== response ============== */
+@media screen and (max-width: 767px){
+
+
+
+}

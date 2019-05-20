@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block head_title %} Edit Profile | {{ block.super }} {% endblock head_title %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="col-md-4 col-sm-8 col-xs-8 col-sm-offset-2 col-md-offset-4 col-xs-offset-2">
+        <div class="profile_edit">
+            <form method="post" enctype="multipart/form-data">
+                 {% csrf_token %}
+
+                <div class="row">
+                    <div id="div_id_first_name" class="form-group">
+                        <label class="col-form-label ">First name</label><br>
+                        {{ form.first_name }}
+                    </div>
+
+                    <div id="div_id_last_name" class="form-group">
+                        <label class="col-form-label ">Last name</label><br>
+                        {{ form.last_name }}
+                    </div>
+
+                    <div id="div_id_email" class="form-group">
+                        <label class="col-form-label ">Email address</label><br>
+                        {{ form.email }}
+                    </div>
+
+                    <input type='submit' class='btn btn-default' value='Submit'/>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-8">
+        {% for m in members %}
+
+        {% if m.image %}
+        <div class="col-sm-4">
+            <img src="{{ m.image.url }}" class="img-responsive">
+        </div>
+        {% endif %}
+        <div class="col-sm-8">
+            <a href="{{ m.member }}"></a>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,186 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <!-- ========== Meta Tags ========== -->
+    <meta name="description" content="knowledge gossip is news portal and best technology site">
+    <meta name="keywords" content="programming language, web development,c, c++, python, java, javascript, html, css,
+    android, hacking, artificial intelligence, technology news, science and technology">
+    <meta name="author" content="Moshiur Rahman">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- ============ Page Title ============= -->
+    <title>{% block head_title %}knowledgegossip{% endblock head_title %}</title>
+
+
+    <link rel="shorcut icon" type="image/x-icon" href="/static/image/FullColorBookIcon.png">
+    <!-- =============== CSS =============== -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href='{% static "css/base.css" %}'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+    {% block stylesheet %} {% endblock %}
+
+    {% block head-extra %}
+    {% endblock head-extra %}
+
+</head>
+<body>
+
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=1624842857605149&autoLogAppEvents=1';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+    <div class="container">
+        <div class="site_title">
+        <h3><a href="{% url 'post:list' %}"><span style="color: #cc0000">Knowledge</span> Gossip</a></h3>
+        </div>
+
+        <nav class="navbar navbar-inverse">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        <div class="collapse navbar-collapse" id="myNavbar">
+
+                                <ul class="nav navbar-nav">
+                                    <li><a href="{% url 'home' %}">Home</a></li>
+                                    <li><a href="{% url 'about' %}">About</a></li>
+                                </ul>
+
+                                <ul class="nav navbar-nav navbar-right">
+                                    {% if not request.user.is_authenticated %}
+                                    <li><a href="{% url 'accounts:register' %}"><i class="fa fa-user"></i>Register</a></li>
+                                    <li><a href="{% url 'accounts:login' %}"><i class="fa fa-sign-in"></i>Login</a></li>
+                                    <li><a href="{% url 'accounts:reset_password' %}">Reset password</a></li>
+
+                                    {% else %}
+
+                                    {% if request.user.is_staff %}
+
+                                    {% endif %}
+                                    <li><a href="{% url 'post:create' %}">Create Post</a></li>
+
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-target="dropdown" href="#">{{ user.username }}<span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+
+                                            <li><a href="{% url 'accounts:view_profile' %}">My account</a></li>
+                                            <li><a href="{% url 'accounts:change_password' %}">Change password</a></li>
+                                            <li><a href="{% url 'accounts:logout' %}"><i class="fa fa-sign-out"></i>Logout</a></li>
+
+                                        </ul>
+                                    </li>
+
+
+                                    {% endif %}
+
+                                </ul>
+                        </div>
+
+                </div>
+            </div>
+         </nav>
+
+
+     {% block content %}
+
+
+
+
+
+    {% endblock content %}
+
+
+    </div>
+
+
+
+<!--  =================== JS =================== -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.min.js'></script>
+
+    {% block javascript %}
+
+
+    <!-- For Pagination page number -->
+    <script>
+$(document).ready(function(){
+
+  var skip_pages = 5; //change your number accordingly you want to show numbers
+
+  var total_pages = {{object_list.paginator.num_pages}};
+  var current_page = {{object_list.number}};
+  var factor = Math.floor(current_page/skip_pages);
+
+  $(".page_number").each(function(i, obj) {   //Showing the discrete numbers
+        var page = factor*(skip_pages) + i + 1;
+        if(current_page%skip_pages == 0)
+          page = (factor-1)*skip_pages + i + 1;
+        if(page - 1 < total_pages){
+          $(this).html(page);
+          $(this).attr("href", "?page=" + page);
+        }
+        else{
+          var x = i+1;
+          $('li[data=' + x + ']').css("display", "none");
+        }
+  });
+    var page = current_page%skip_pages;
+    if(page == 0)
+      page = skip_pages;
+    $('li[data=' + page + ']').each(function(){   //Deciding the active class
+      $('li[data=' + page + ']').addClass("active");
+    });
+
+  $(".skip_next").click(function(){   //Skip next ... Function
+      if(current_page%skip_pages == 0)
+        factor = factor-1;
+      var page = (factor+1)*skip_pages + 1;
+      if(page < total_pages)
+        $(this).attr("href", "?page=" + page);
+      else
+        $(this).attr("href", "?page=" + total_pages);
+  })
+  $(".skip_prev").click(function(){ //Skip Previous ... Function
+      if(current_page%skip_pages == 0)
+        factor = factor-1;
+      var page = skip_pages*(factor-1) + 1;
+      if(page > 0)
+        $(this).attr("href", "?page=" + page);
+      else
+        $(this).attr("href", "?page=" + "1");
+  })
+})
+
+</script>
+    {% endblock %}
+
+
+
+
+
+</body>
+</html>

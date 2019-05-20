@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block head_title %} Profile | {{ block.super }}{% endblock head_title %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 col-sm-8 col-sm-offset-0">
+        <div class="row">
+            <div class="col-sm-6 col-xs-6">
+                {% if user.userprofile.image %}
+                <img src="{{ user.userprofile.image.url }}" class="img-responsive">
+                {% endif %}
+            </div>
+            <div class="col-sm-6">
+                <br>
+                <br>
+                {% if user.get_full_name %}
+                <h3>{{ user.get_full_name }}</h3>
+                {% else %}
+                <h3><b>@{{ user.username }}</b></h3>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <br>
+
+
+<ul style="display: inline-flex;list-style: none; padding:0px; margin: 0px">
+    <li style="margin-right:20px">
+        <b><a style="color: #cc0000" href="{% url 'accounts:edit_profile' %}">Edit profile</a></b>
+    </li>
+    <li>
+        <b><a style="color: #cc0000" href="{%  url 'accounts:edit_info' %}">Edit info</a></b>
+    </li>
+</ul>
+
+
+        <br><br>
+        <br><br>
+    <p>First name: {{ user.first_name }}</p>
+    <p>Last name: {{ user.last_name }}</p>
+    <p>Email: {{ user.email }}</p>
+    <p>Description: {{ user.userprofile.description }}</p>
+    <p>City: {{ user.userprofile.city }}</p>
+    <p>Phone: {{ user.userprofile.phone }}</p>
+    <p>Website: {{ user.userprofile.website }}</p>
+
+
+
+
+    </div>
+</div>
+{% endblock content %}

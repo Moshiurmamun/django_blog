@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block head_title %} Edit Information | {{ block.super }} {% endblock head_title %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4 col-sm-8 col-xs-8 col-sm-offset-2 col-md-offset-4 col-xs-offset-2">
+        <div class="profile_info">
+            <form method="post" enctype="multipart/form-data">
+
+                 {% csrf_token %}
+                {{ form|crispy }}
+
+                <input type='submit' class='btn btn-default' value='Submit'/>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
